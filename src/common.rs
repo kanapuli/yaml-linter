@@ -18,4 +18,9 @@ impl File {
 
         Some(Self{ file_name, path })
     }
+
+    ///Checks a filename with ".yml" or ".yaml" extension
+    pub fn is_yaml_file(&self) -> bool {
+        self.file_name.ends_with(".yml") || self.file_name.ends_with(".yaml")
+    }
 }
