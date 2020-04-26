@@ -60,5 +60,16 @@ fn run() -> Result<Vec<Warning>, Box<dyn Error>> {
             .filter_map(|f| File::from(f))
             .collect();
     };
+
+    for dir in dirs {
+        let entries = dir.read_dir().unwrap();
+        let mut dir_files: Vec<File> = entries
+            .filter_map(|f| f.ok())
+            .filter_map(|f| File::from(f.path()))
+            .filter(|f| f.is_yaml_file())
+            .collect();
+
+        files.append(dir_files.as_mut());
+    }
     Ok(warnings)
 }
